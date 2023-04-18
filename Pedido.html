@@ -35,8 +35,8 @@
                                 </tr>
                             </thead>
                             <tbody id="DatosPedidos">
+                            
                                 
-             
                             </tbody>
 
                         </table>
@@ -49,16 +49,40 @@
             
 
         </div>
-        <div class="Forms">
-
+        <div class="Formulario" class="Formulario mt6">
+            <div class="row">
+                <div class="col-12">
+                    <h3>
+                        Agregar Pedido
+                    </h3>
+                </div>
+            </div>
+            <div class="col-12">
+                <form id="Miformulario" class="Pedido">
+                    <label for="">Numero Pedido</label>
+                    <input type="text" id="numeropedido" class="form-control" placeholder="Ingrese el numero de pedido">
+                    <label for="">Numero Cliente</label>
+                    <input type="text" id="numerocliente" class="form-control" placeholder="Ingrese el numero de cliente">
+                    <label for="">Empresa</label>
+                    <input type="text" id="empresa" class="form-control" placeholder="Ingrese la empresa">
+                    <label for="">Fecha Pedido</label>
+                    <input type="datetime" id="fechapedido" class="form-control" placeholder="Ingrese la fecha del pedido">
+                    <label for="">Direccion</label>
+                    <input type="text" id="direccion" class="form-control" placeholder="Ingrese la direccion">
+                    <label for="">Tipo De Pago</label>
+                    <input type="text" id="tipodepago" class="form-control" placeholder="Ingrese el tipo de pago">
+                    <label for="">Monto Total</label>
+                    <input type="text" id="montototal" class="form-control" placeholder="Ingrese el monto total">
+                    <hr>
+                    <div id="btnagregarpedido">
+                        <input type="button" value="Agregar Pedido" class="btn btn-success" id="btnagregar"
+                        onclick="AgregarPedido()">
+                    </div>
+                </form>
+            </div>
         </div>
-
     </div>
-
-
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
 </body>
 </html>
