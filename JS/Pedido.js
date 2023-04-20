@@ -1,6 +1,8 @@
 var UrlApiGetAll = 'http://localhost:5009/pedido/getall';
 var UrlApiInsert = 'http://localhost:5009/pedido/insertar';
 var UrlApiGetOne = 'http://localhost:5009/pedido/getone/:numero_pedido';
+var UrlApiUpdate = 'http://localhost:5009/pedido/actualizar';
+var UrlApiDelete = 'http://localhost:5009/pedido/eliminar/:numero_pedido'
 
 $(document).ready(function(){
     CargarPedidos();
@@ -27,7 +29,8 @@ function CargarPedidos(){
                     '<td>'+ MisItems[i].tipo_de_pago +'</td>'+
                     '<td>'+ MisItems[i].monto_total +'</td>'+
                     '<td>'+
-                    '<button id="btneditar" class="btn btn-info" onclick="CargarPedido('+ MisItems[i].numero_pedido +')">Editar</button>'+
+                    '<button id="btneditar" class="btn btn-dark" onclick="CargarPedido('+ MisItems[i].numero_pedido +')">Editar</button>'+
+                    '<button id="btneliminar" class="btn btn-danger" onclick="EliminarPedido('+ MisItems[i].numero_pedido +')">Eliminar</button>'+
                     '</td>'+
                     '</tr>';
                 $('#DatosPedidos').html(Valores);   
@@ -93,16 +96,60 @@ function CargarPedido(p_numero_pedido){
             $('#direccion').val(MisItems[i].direccion);
             $('#tipodepago').val(MisItems[i].tipo_de_pago);
             $('#montototal').val(MisItems[i].monto_total);
-            var btnActualizar= '<input type="button" class="btn btn-secondary" '+
-            'id="btnagregar" onclick="ActualizarPedido('+ MisItems[i].numero_pedido +')" value="Actualizar Pedido" >';
-            $('#btnagregarpedido').html(btnActualizar);
+            var btnactualizar= '<input type="button" class="btn btn-warning" '+
+            'id="btnactualizar" onclick="ActualizarPedido('+ MisItems[i].numero_pedido +')" value="Actualizar Pedido" >';
+            $('#btnagregarpedido').html(btnactualizar);
         } 
       }
     });
 }
 
 function ActualizarPedido(p_numero_pedido){
+    var datospedido={
+        numero_pedido : p_numero_pedido,
+        numero_pedido: $('#numeropedido').val(), 
+        numero_cliente: $('#numerocliente').val(),
+        empresa: $('#empresa').val(),
+        fecha_pedido: $('#fechapedido').val(),
+        direccion: $('#direccion').val(),
+        tipo_de_pago: $('#tipodepago').val(),
+        monto_total: $('#montototal').val()
+        };
+        var datospedidojson = JSON.stringify(datospedido);
+        //alert (datospedidojson);
 
+        $.ajax({
+            url: UrlApiUpdate,
+            type: 'PUT',
+            data: datospedidojson,
+            datatype: 'JSON',
+            contentType: 'application/json',
+            success: function(response){
+                console.log(response);
+            }
+        });
+        alert("Pedido Actualizado de Forma Correcta")
 }
+
+function EliminarPedido(p_numero_pedido){
+    var datospedido = {
+        numero_pedido : p_numero_pedido
+    };
+    var datospedidojson = JSON.stringify(datospedido);
+
+    $.ajax({
+        url: UrlApiDelete,
+        type: 'DELETE',
+        data: datospedidojson,
+        datatype: 'JSON',
+        contentType: 'application/json',
+        success: function(response){
+            console.log(response);
+        }
+    });
+    alert("Pedido Eliminado de Forma Correcta")
+}
+
+
 
 
