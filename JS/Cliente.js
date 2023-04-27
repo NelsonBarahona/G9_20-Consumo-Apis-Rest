@@ -1,16 +1,17 @@
 var UrlApiGetAll = 'http://localhost:5009/cliente/getall';
-var UrlApiInsert= 'http://localhost:5009/cliente/insertar';
-var UrlApiGetOne = 'http://localhost:5009/cliente/getone/:numero_cliente';
-var UrlApiUpdate = 'http://localhost:5009/cliente/actualizar';
-var UrlApiDelete = 'http://localhost:5009/cliente/eliminar/:numero_cliente';
+//var UrlApiInsert= 'http://localhost:5009/cliente/insertar';
+//var UrlApiGetOne = 'http://localhost:5009/cliente/getone/:numero_cliente';
+//var UrlApiUpdate = 'http://localhost:5009/cliente/actualizar';
+//var UrlApiDelete = 'http://localhost:5009/cliente/eliminar/:numero_cliente';
+
 
 $(document).ready(function(){
     CargarCliente();
-})
+});
 
 function CargarCliente(){
     $.ajax({
-        UrlApiGetAll,
+        url:UrlApiGetAll,
         type: 'GET',
         datatype:'JSON',
         success: function(response){
@@ -19,17 +20,23 @@ function CargarCliente(){
 
             for(i=0; i< MisItems.length; i++)
             {
-                valores +=
-                '<tr>'+
-                   '<td>'+ MisItems[i].numero_cliente +'</td>'+
-                   '<td>'+ MisItems[i].nombre +'</td>'+
-                   '<td>'+ MisItems[i].apellido +'</td>'+
-                   '<td>'+ MisItems[i].fecha_registro +'</td>'+
-                   '<td>'+ MisItems[i].direccion_cliente +'</td>'+
-                   '<td>'+ MisItems[i].rtn +'</td>'+
-                   '<td>'+ MisItems[i].email +'</td>'+
-                '</tr>';
-                $('#DatosCliente').html(valores);
+                Valores +=
+                   '<tr>'+
+                   '<td>'+ MisItems[i].numero_cliente + '</td>'+
+                   '<td>'+ MisItems[i].nombre + '</td>'+
+                   '<td>'+ MisItems[i].apellido + '</td>'+
+                   '<td>'+ MisItems[i].fecha_registro + '</td>'+
+                   '<td>'+ MisItems[i].direccion_cliente + '</td>'+
+                   '<td>'+ MisItems[i].rtn + '</td>'+
+                   '<td>'+ MisItems[i].email + '</td>'+
+                   '<button id="btneditar" class="btn btn-dark" onclick="CargarCliente('+ MisItems[i].numero_cliente +')">Editar</button>'+
+                   '</td>'+
+                   '<td>'+
+                   '<button id="btneliminar" class="btn btn-danger" onclick="EliminarCliente('+ MisItems[i].numero_cliente +')">Eliminar</button>'+
+                   '</td>'+
+                   '<td>';
+                   '</tr>';
+                $('#DatosCliente').html(Valores);
             }
         }
     });
