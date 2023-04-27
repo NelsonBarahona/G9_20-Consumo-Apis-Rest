@@ -5,21 +5,21 @@ var UrlApiGetAll = 'http://localhost:5009/cliente/getall';
 //var UrlApiDelete = 'http://localhost:5009/cliente/eliminar/:numero_cliente';
 
 
+
 $(document).ready(function(){
     CargarCliente();
 });
 
 function CargarCliente(){
     $.ajax({
-        url:UrlApiGetAll,
+        url: UrlApiGetAll,
         type: 'GET',
-        datatype:'JSON',
-        success: function(response){
-            var MisItems=response;
+        datatype: 'JSON',
+        success: function (response) {
+            var MisItems = response;
             var Valores = '';
 
-            for(i=0; i< MisItems.length; i++)
-            {
+            for(i=0; i< MisItems.length; i++) {
                 Valores +=
                    '<tr>'+
                    '<td>'+ MisItems[i].numero_cliente + '</td>'+
@@ -29,12 +29,12 @@ function CargarCliente(){
                    '<td>'+ MisItems[i].direccion_cliente + '</td>'+
                    '<td>'+ MisItems[i].rtn + '</td>'+
                    '<td>'+ MisItems[i].email + '</td>'+
-                   '<button id="btneditar" class="btn btn-dark" onclick="CargarCliente('+ MisItems[i].numero_cliente +')">Editar</button>'+
+                   '<td>'+
+                   '<button id="btneditar" class="btn btn-outline-info" onclick="CargarCliente('+ MisItems[i].numero_cliente + ')">Editar</button>' +
                    '</td>'+
                    '<td>'+
-                   '<button id="btneliminar" class="btn btn-danger" onclick="EliminarCliente('+ MisItems[i].numero_cliente +')">Eliminar</button>'+
+                   '<button id="btneliminar" class="btn btn-outline-warning" onclick="EliminarCliente('+ MisItems[i].numero_cliente +')">Eliminar</button>'+
                    '</td>'+
-                   '<td>';
                    '</tr>';
                 $('#DatosCliente').html(Valores);
             }
@@ -44,7 +44,7 @@ function CargarCliente(){
 
 function AgregarCliente(){
 
-    var datoscliente={
+    var DatosCliente={
         numero_cliente: $('#numerocliente').val(), 
         nombre: $('#nombre').val(),
         apellido: $('#apellido').val(),
@@ -54,13 +54,13 @@ function AgregarCliente(){
         email: $('#email').val()
         };
      //Convertir objeto de datos a formato JSON
-       var datosclientejson = JSON.stringify(datoscliente);
+       var datosclientejson = JSON.stringify(DatosCliente);
    
     //alert(datosclientejson);
        $.ajax({
-          url : UrlApiInsert,
-          type : 'POST',
-          data : datosclientejson,
+          url: UrlApiInsert,
+          type: 'POST',
+          data: datosclientejson,
           datatype : 'JSON',
           contentType : 'application/json',
           success: function(response){
@@ -78,11 +78,11 @@ function AgregarCliente(){
 
 function CargarCliente(numero_cliente){
 
-    var datoscliente = {
+    var DatosCliente = {
         numero_cliente : numero_cliente
     };
 
-    var datosclientejson = JSON.stringify(datoscliente);
+    var datosclientejson = JSON.stringify(DatosCliente);
 
     $.ajax({
       url : UrlApiGetOne,
